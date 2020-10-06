@@ -1,0 +1,11 @@
+<div class="block text-center col-12">
+  <h1 class="block-title">My Profile Page</h1>
+</div>
+<hr>
+<p>Username: <%= current_user.username %></p>
+<p>Registration Date: <%= current_user.created_at.time.to_date %></p>
+<p>Quantity of Tweets: <%= @tweets.count %></p>
+<p>Quantity of Following: <%= @following.count %></p>
+<p>Quantity of Follower: <%= @follower.count %></p>
+<p>Tweets: <%= link_to 'See All Tweets', mytweets_path %></p>
+<p>Image: <%= image_tag current_user.profile_img_url, class: 'user-thumb', size: '200x200' %></p>
