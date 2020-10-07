@@ -9,4 +9,4 @@
 <p>Quantity of Followers: <%= @follower.count %></p>
 <p>Tweets content: <%= link_to 'See All Tweets', mytweets_path %></p>
 <p>Image:</p>
-<p><%= image_tag @user.profile_img_url, class: 'user-thumb', size: '200x200' %></p>
+<p><%= image_tag current_user.profile_img_url, class: 'user-thumb', size: '200x200' %></p>
