@@ -1,4 +1,5 @@
 class MainController < ApplicationController
+  before_action :verify_authenticity_token, :except => [:index, :like_tweet]
   def index
     if user_signed_in?
       @tweets = Tweet.tweets_for_me(current_user.friends.pluck(:friend_id)).order(created_at: 'desc').page(params[:page])
@@ -41,8 +42,23 @@ class MainController < ApplicationController
     @like.tweet = @tweet
     @like.user = current_user
     @like.save
-    flash[:notice] = "Tweet liked!"
-    redirect_to :root
+    if @like.save
+      flash[:notice] = "Tweet liked!"
+      if user_signed_in?
+        @tweets = Tweet.tweets_for_me(current_user.friends.pluck(:friend_id)).order(created_at: 'desc').page(params[:page])
+        @tweets = Tweet.order(created_at: 'desc').page(params[:page])
+      else
+        @tweets = Tweet.order(created_at: 'desc').page(params[:page])
+      end
+      @user_likes = Like.where(user_id: current_user.id).pluck(:tweet_id) rescue []
+      @user_friend = Friend.where(user_id: current_user.id).pluck(:friend_id) rescue []
+      respond_to do |format|
+        format.js { render json: render_to_string('_tweets'), status: :created }
+        # render json: { html: render_to_string(partial: 'random') }
+      end
+    else
+    end
+    # redirect_to :root
   end
 
   def unlike_tweet
@@ -87,7 +103,16 @@ class MainController < ApplicationController
     @follow.friend = User.find(params[:friend])
     if @follow.save
       flash[:notice] = "Follow Successfully..."
-      redirect_to :root
+      redirect_back fallback_location: root_path
+    end
+  end
+
+  def unfollow
+    @follow = Friend.where(user_id: current_user.id).where(friend_id: params[:friend]).first
+    
+    if @follow.destroy
+      flash[:notice] = "Unfollow Successfully..."
+      redirect_back fallback_location: root_path
     end
   end
 

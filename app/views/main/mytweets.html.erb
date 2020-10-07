@@ -12,14 +12,14 @@
     <%= raw tweet.content.split(' ').map{|c| c.index('#') === 0 ? (link_to c, search_url(q: c)) : c}.join(' ') %>
   </div>
   <% if !tweet.original.nil? %>
-    <p><em><%= link_to 'See original tweet', show_path(tweet: tweet.original.id)%></em></p>
+    <p><em><%= link_to 'See Original Tweet', show_path(tweet: tweet.original.id)%></em></p>
   <% end %>
   <% if user_signed_in? %>
   <p>
     <% if @user_likes.include? tweet.id %>
     <%= link_to 'Unike', unlike_tweet_path(tweet: tweet.id), method: :post %>
     <% else %>
-    <%= link_to 'Like', like_tweet_path(tweet: tweet.id), method: :post %>
+    <%= link_to 'Like', like_tweet_path(tweet: tweet.id), method: :post, remote: true %>
     <% end %> |
     <%= link_to 'Retweet', retweet_path(tweet: tweet.id), method: :post %>
   </p>

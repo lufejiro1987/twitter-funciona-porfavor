@@ -15,7 +15,7 @@
     <%= @tweet.content %>
   </div>
   <% if !@tweet.original.nil? %>
-    <p><em><%= link_to 'See original tweet', show_path(tweet: @tweet.id)%></em></p>
+    <p><em><%= link_to 'See Original Tweet', show_path(tweet: @tweet.id)%></em></p>
   <% end %>
   <p><%= time_ago_in_words @tweet.created_at %> | <strong>Likes:</strong> <%= @tweet.likes.count %> | <strong>Retweets:</strong> <%= @tweet.retweets.blank? ? 0 : @tweet.retweets %></p>
   <div class="likes">
@@ -25,4 +25,4 @@
   </div>
 </div>
 <hr>
-<%= link_to '< Back, 'javascript:history.go(-1)' %>
+<%= link_to '< Back', 'javascript:history.go(-1)' %>

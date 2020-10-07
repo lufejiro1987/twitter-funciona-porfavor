@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   post 'create', to: 'main#create_tweet', as: 'create_tweet'
   post 'like/:tweet', to: 'main#like_tweet', as: 'like_tweet'
   post 'follow/:friend', to: 'main#follow', as: 'follow_user'
+  post 'unfollow/:friend', to: 'main#unfollow', as: 'unfollow_user'
   post 'unlike/:tweet', to: 'main#unlike_tweet', as: 'unlike_tweet'
   post 'retweet/:tweet', to: 'main#retweet', as: 'retweet'
   get 'show/:tweet', to: 'main#show', as: 'show'

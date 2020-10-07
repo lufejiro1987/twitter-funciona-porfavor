@@ -5,11 +5,11 @@
 <% if @friends.count > 0 %>
 
 <% @friends.each do |friend| %>
-<div><p><%= image_tag friend.friend.profile_img_url, class: 'user-thumb', size: '200x200' %> <%= link_to friend.friend.username, userprofile_path(user: friend.friend) %> </p></div>
+<div><p><%= image_tag friend.friend.profile_img_url, class: 'user-thumb', size: '200x200' %> <%= link_to friend.friend.username, userprofile_path(user: friend.friend) %> | <%= link_to 'Unfollow', unfollow_user_path(friend: friend.friend.id), method: :post %> </p></div>
 <hr>
 <% end %>
 <%= paginate @friends %>
 
 <% else %>
-<p><em>No Followers</em></p>
+<p><em>Not following anybody</em></p>
 <% end %>
