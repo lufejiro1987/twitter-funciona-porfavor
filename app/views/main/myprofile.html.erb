@@ -3,9 +3,10 @@
 </div>
 <hr>
 <p>Username: <%= current_user.username %></p>
-<p>Registration Date: <%= current_user.created_at.time.to_date %></p>
-<p>Quantity of Tweets: <%= @tweets.count %></p>
-<p>Quantity of Following: <%= @following.count %></p>
-<p>Quantity of Follower: <%= @follower.count %></p>
-<p>Tweets: <%= link_to 'See All Tweets', mytweets_path %></p>
-<p>Image: <%= image_tag current_user.profile_img_url, class: 'user-thumb', size: '200x200' %></p>
+<p>Registration date: <%= current_user.created_at.time.to_date %></p>
+<p>Tweets: <%= @tweets.count %></p>
+<p>Number of people following: <%= @following.count %></p>
+<p>Quantity of Followers: <%= @follower.count %></p>
+<p>Tweets content: <%= link_to 'See All Tweets', mytweets_path %></p>
+<p>Image:</p>
+<p><%= image_tag @user.profile_img_url, class: 'user-thumb', size: '200x200' %></p>
